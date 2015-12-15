@@ -3,7 +3,7 @@ const INTERVAL = 100;
 toastr.options.timeOut = 1000;
 toastr.info('init');
 
-var circles = []
+var circles = [];
 
 var jobID = 0;
 
@@ -33,7 +33,7 @@ function start() {
 function reset() {
   clearInterval(jobID);
   clearCanvas();
-  circles = []
+  circles = [];
 }
 
 function loop() {
@@ -44,6 +44,7 @@ function loop() {
   }
   for (var i = 0; i < circles.length; i++) {
     checkSpheresCollisions(circles[i]);
+    checkBorderCollisions(circles[i]);
   }
 }
 
@@ -72,4 +73,31 @@ function checkSpheresCollisions(circle) {
       });
     }
   }
+}
+
+function checkBorderCollisions(circle) {
+  var a = circle.angle;
+  var x = circle.position.x,
+    y = circle.position.y;
+  var r = circle.radius;
+  var top = false,
+    bottom = false,
+    left = false,
+    right = false;
+  var w = canvas.width,
+    h = canvas.height;
+
+  var newAngle = 0;
+
+  if (x + r >= w) right = true;
+  if (x - r <= 0) left = true;
+  if (y + r >= h) bottom = true;
+  if (y - r <= 0) top = true;
+
+  if (left && bottom) newAngle = 45;
+  if (left && top) newAngle = 135;
+  if (right && top) newAngle = 225;
+  if (right && bottom) newAngle = 315;
+
+  if (newAngle != 0) circle.angle = newAngle;
 }
