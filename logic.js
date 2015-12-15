@@ -1,4 +1,4 @@
-const INTERVAL = 250;
+const INTERVAL = 100;
 
 toastr.options.timeOut = 1000;
 toastr.info('init');
@@ -52,7 +52,7 @@ function move(circle) {
   // document.write(radians);
   var directionVector = new Vector2(round(Math.sin(radians)), round(-Math.cos(radians)));
   // document.write('vector: ' + directionVector);
-  var moveVector = multiplyVector(directionVector, circle.speed / (1000/INTERVAL));
+  var moveVector = multiplyVector(directionVector, circle.speed / (1000 / INTERVAL));
   // document.write('<br>move: ' + moveVector);
   var newPosition = addVectors(circle.position, moveVector);
   // document.write('<br>new: ' + newPosition);
@@ -61,8 +61,15 @@ function move(circle) {
 
 function checkSpheresCollisions(circle) {
   for (var i = 0; i < circles.length; i++) {
-    var distance = round(distanceVectors(circle.position, circles[i].position));
-    if (distance == 0) continue;
-    toastr.info(distance);
+    var col = circles[i];
+    if (circle === col) continue;
+    var distance = round(distanceVectors(circle.position, col.position));
+    var radiusSum = circle.radius + col.radius;
+    toastr.info(distance + ' ' + radiusSum);
+    if (distance <= (circle.radius + col.radius)) {
+      toastr.error('collision', {
+        timeOut: 2000
+      });
+    }
   }
 }

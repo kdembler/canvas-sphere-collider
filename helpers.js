@@ -26,9 +26,9 @@ function distanceVectors(v1, v2) {
 
 function Circle(position, radius, angle, speed, color) {
   this.position = position;
-  this.radius = radius;
-  this.angle = angle;
-  this.speed = speed;
+  this.radius = Number(radius);
+  this.angle = Number(angle);
+  this.speed = Number(speed);
   this.color = color;
 }
 
