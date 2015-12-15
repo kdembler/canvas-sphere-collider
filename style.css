@@ -1,0 +1,9 @@
+.canvas-drawing {
+  border: 1px solid black;
+  background-color: white;
+}
+
+.container-canvas {
+  width: 1000px;
+  margin: 0 auto;
+}

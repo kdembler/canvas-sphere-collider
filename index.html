@@ -5,22 +5,23 @@
   <meta charset="UTF-8">
   <title>Sphere Collider</title>
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-  <!-- Bootflat -->
-  <link rel="stylesheet" href="https://bootflat.github.io/bootflat/css/bootflat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/yeti/bootstrap.css">
   <!-- My CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
+  <div class="container">
+    <div class="jumbotron">
+      <div class="container container-canvas">
+        <canvas id="mainCanvas" class="canvas-drawing" width="1000" height="600"></canvas>
+        <button class="btn btn-primary" onClick="drawTest();">Test</button>
+      </div>
+    </div>
+  </div>
   <!-- Bootstrap -->
   <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-  <!-- Bootflat's JS files.-->
-  <script src="https://bootflat.github.io/bootflat/js/icheck.min.js"></script>
-  <script src="https://bootflat.github.io/bootflat/js/jquery.fs.selecter.min.js"></script>
-  <script src="https://bootflat.github.io/bootflat/js/jquery.fs.stepper.min.js"></script>
   <!-- My scripts -->
   <script src="script.js"></script>
 </body>
