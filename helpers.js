@@ -20,6 +20,10 @@ function multiplyVector(v, n) {
   return new Vector2(v.x * n, v.y * n);
 }
 
+function distanceVectors(v1, v2) {
+  return Math.sqrt(Math.pow(v1.x - v2.x, 2) + Math.pow(v1.y - v2.y, 2));
+}
+
 function Circle(position, radius, angle, speed, color) {
   this.position = position;
   this.radius = radius;

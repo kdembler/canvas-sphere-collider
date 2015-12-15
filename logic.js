@@ -1,3 +1,5 @@
+const INTERVAL = 250;
+
 toastr.options.timeOut = 1000;
 toastr.info('init');
 
@@ -25,7 +27,7 @@ function addCircle(x, y, radius, angle, speed, color) {
 
 function start() {
   toastr.info('starting loop');
-  jobID = setInterval(loop, 10);
+  jobID = setInterval(loop, INTERVAL);
 }
 
 function reset() {
@@ -37,10 +39,11 @@ function reset() {
 function loop() {
   clearCanvas();
   for (var i = 0; i < circles.length; i++) {
-    // toastr.info('hey');
-    // toastr.info('drawing: ' + circles[i]);
     move(circles[i]);
     drawCircle(circles[i]);
+  }
+  for (var i = 0; i < circles.length; i++) {
+    checkSpheresCollisions(circles[i]);
   }
 }
 
@@ -49,9 +52,17 @@ function move(circle) {
   // document.write(radians);
   var directionVector = new Vector2(round(Math.sin(radians)), round(-Math.cos(radians)));
   // document.write('vector: ' + directionVector);
-  var moveVector = multiplyVector(directionVector, circle.speed);
+  var moveVector = multiplyVector(directionVector, circle.speed / (1000/INTERVAL));
   // document.write('<br>move: ' + moveVector);
   var newPosition = addVectors(circle.position, moveVector);
   // document.write('<br>new: ' + newPosition);
   circle.position = newPosition;
+}
+
+function checkSpheresCollisions(circle) {
+  for (var i = 0; i < circles.length; i++) {
+    var distance = round(distanceVectors(circle.position, circles[i].position));
+    if (distance == 0) continue;
+    toastr.info(distance);
+  }
 }
