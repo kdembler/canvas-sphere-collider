@@ -24,7 +24,8 @@ function addCircle(x, y, radius, angle, speed, color) {
 }
 
 function start() {
-  jobID = setInterval(loop, 1000);
+  toastr.info('starting loop');
+  jobID = setInterval(loop, 10);
 }
 
 function reset() {
@@ -36,10 +37,21 @@ function reset() {
 function loop() {
   clearCanvas();
   for (var i = 0; i < circles.length; i++) {
+    // toastr.info('hey');
+    // toastr.info('drawing: ' + circles[i]);
     move(circles[i]);
+    drawCircle(circles[i]);
   }
 }
 
 function move(circle) {
-  circle.position = addVectors(circle.position, multiplyVector(circle.direction, speed));
+  var radians = round(toRadians(circle.angle));
+  // document.write(radians);
+  var directionVector = new Vector2(round(-Math.sin(radians)), round(-Math.cos(radians)));
+  // document.write('vector: ' + directionVector);
+  var moveVector = multiplyVector(directionVector, circle.speed);
+  // document.write('<br>move: ' + moveVector);
+  var newPosition = addVectors(circle.position, moveVector);
+  // document.write('<br>new: ' + newPosition);
+  circle.position = newPosition;
 }
