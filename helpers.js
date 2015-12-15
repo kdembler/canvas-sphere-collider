@@ -12,7 +12,7 @@ Vector2.prototype.toString = function() {
 
 function addVectors(v1, v2) {
   x = Number(v1.x + v2.x);
-  y = Number(v1.y + v2.x);
+  y = Number(v1.y + v2.y);
   return new Vector2(x, y);
 }
 

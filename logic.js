@@ -47,7 +47,7 @@ function loop() {
 function move(circle) {
   var radians = round(toRadians(circle.angle));
   // document.write(radians);
-  var directionVector = new Vector2(round(-Math.sin(radians)), round(-Math.cos(radians)));
+  var directionVector = new Vector2(round(Math.sin(radians)), round(-Math.cos(radians)));
   // document.write('vector: ' + directionVector);
   var moveVector = multiplyVector(directionVector, circle.speed);
   // document.write('<br>move: ' + moveVector);
