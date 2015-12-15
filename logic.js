@@ -19,6 +19,7 @@ function handleForm(form) {
 function addCircle(x, y, radius, angle, speed, color) {
   var position = new Vector2(x, y);
   var circle = new Circle(position, radius, angle, speed, color);
+  drawCircle(circle);
   circles.push(circle);
 }
 
