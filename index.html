@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
   <!-- My CSS -->
   <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -18,8 +17,48 @@
     <div class="jumbotron">
       <div class="container container-canvas">
         <canvas id="mainCanvas" class="canvas-drawing" width="1000" height="600"></canvas>
-        <button class="btn btn-primary" onClick="drawTest();">Test</button>
-        <button class="btn btn-primary" onClick="clearCanvas();">Clear</button>
+        <form class="col-lg-4">
+          <div class="form-group row">
+            <label for="posX" class="form-control-label col-lg-2">Position:</label>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" id="posX" name="posX" placeholder="X">
+            </div>
+            <div class="col-lg-5">
+              <input type="text" class="form-control" id="posY" name="posY" placeholder="Y">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="radius" class="form-control-label col-lg-2">Radius:</label>
+            <div class="col-lg-10">
+              <input type="text" id="radius" name="radius" class="form-control" placeholder="Radius">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="angle" class="form-control-label col-lg-2">Angle:</label>
+            <div class="col-lg-10">
+              <input type="text" id="angle" name="angle" class="form-control" placeholder="Angle">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="speed" class="form-control-label col-lg-2">Speed:</label>
+            <div class="col-lg-10">
+              <input type="text" id="speed" name="speed" class="form-control" placeholder="Speed">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="color" class="form-control-label col-lg-2">RGB Color:</label>
+            <div class="col-lg-10">
+              <input type="text" id="color" name="color" class="form-control" placeholder="RGB Color">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-default" type="button" onclick="handleForm(this.form);">Add</button>
+            </div>
+          </div>
+        </form>
+        <button class="btn btn-primary" onClick="reset();">Reset</button>
+        <button class="btn btn-primary" onClick="start();">Start</button>
       </div>
     </div>
   </div>

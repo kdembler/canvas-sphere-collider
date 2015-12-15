@@ -6,22 +6,33 @@ function Vector2(x, y) {
   this.y = y;
 }
 
-function Circle(position, radius, direction) {
+function addVectors(v1, v2) {
+  x = v1.x + v2.x;
+  y = v1.y + v2.x;
+  return new Vector2(x, y);
+}
+
+function multiplyVector(v, n) {
+  return new Vector2(v.x * n, v.y * n);
+}
+
+function Circle(position, radius, angle, speed, color) {
   this.position = position;
   this.radius = radius;
-  this.direction = direction;
-  this.color = "#000000";
+  this.angle = angle;
+  this.speed = speed;
+  this.color = color;
 }
 
 function drawCircle(circle) {
-  var posX = circle.position.x;
-  var posY = circle.position.y;
+  var x = circle.position.x;
+  var y = circle.position.y;
   var radius = circle.radius;
   var color = circle.color;
-  toastr.info(sprintf('drawTest((%f,%f),%f,%s)', posX, posY, radius, color));
+  toastr.info(sprintf('drawTest((%f,%f),%f,%s)', x, y, radius, color));
   ctx.fillStyle = color;
   ctx.beginPath();
-  ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
+  ctx.arc(x, y, radius, 0, 2 * Math.PI);
   ctx.fill();
 }
 
