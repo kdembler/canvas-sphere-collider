@@ -50,13 +50,9 @@ function loop() {
 
 function move(circle) {
   var radians = round(toRadians(circle.angle));
-  // document.write(radians);
   var directionVector = new Vector2(round(Math.sin(radians)), round(-Math.cos(radians)));
-  // document.write('vector: ' + directionVector);
   var moveVector = multiplyVector(directionVector, circle.speed / (1000 / INTERVAL));
-  // document.write('<br>move: ' + moveVector);
   var newPosition = addVectors(circle.position, moveVector);
-  // document.write('<br>new: ' + newPosition);
   circle.position = newPosition;
 }
 
@@ -65,10 +61,8 @@ function checkSpheresCollisions(circle) {
     var col = circles[i];
     if (circle === col) continue;
     var distance = round(distanceVectors(circle.position, col.position));
-    var radiusSum = circle.radius + col.radius;
-    // toastr.info(distance + ' ' + radiusSum);
     if (distance <= (circle.radius + col.radius)) {
-      //collision
+
     }
   }
 }
@@ -88,28 +82,33 @@ function checkBorderCollisions(circle) {
   var collision = false;
 
   var newAngle = 0;
+  var collisionAngle = 0;
 
   if (x + r >= w) {
-    right = true;
     collision = true;
+    right = true;
+    collisionAngle = 90;
   }
   if (x - r <= 0) {
-    left = true;
     collision = true;
+    left = true;
+    collisionAngle = 270;
   }
   if (y + r >= h) {
-    bottom = true;
     collision = true;
+    bottom = true;
+    collisionAngle = 180;
   }
   if (y - r <= 0) {
-    top = true;
     collision = true;
+    top = true;
+    collisionAngle = 0;
   }
 
   if (!collision) return;
   toastr.error('collision');
 
-  if (a % 90 == 0) newAngle = (a + 180) % 360; //perpendicular
+  /*if (a % 90 == 0) newAngle = (a + 180) % 360; //perpendicular
   else if (left && bottom) newAngle = 45;
   else if (left && top) newAngle = 135;
   else if (right && top) newAngle = 225;
@@ -121,7 +120,26 @@ function checkBorderCollisions(circle) {
   else if (top && a < 90) newAngle = (a + (90 - a) * 2) % 360;
   else if (top && a > 90) newAngle = (a - (a - 270) * 2) % 360;
   else if (bottom && a > 180) newAngle = (a + (270 - a) * 2) % 360;
-  else if (bottom && a < 180) newAngle = (a - (a - 90) * 2) % 360;
+  else if (bottom && a < 180) newAngle = (a - (a - 90) * 2) % 360;*/
+
+  if ((a - collisionAngle) % 90 == 0) newAngle = (a + 180) % 360; //perpendicular
+  else if (left && bottom) newAngle = 45;
+  else if (left && top) newAngle = 135;
+  else if (right && top) newAngle = 225;
+  else if (right && bottom) newAngle = 315;
+  else {
+    var upper = (collisionAngle + 90) % 360;
+    if (upper == 0) upper = 360;
+    var lower = (collisionAngle - 90) % 360;
+    if (collisionAngle < 90) {
+      if (a > collisionAngle) newAngle = (a + (upper - a) * 2) % 360;
+      if (a < collisionAngle) newAngle = (a - (a - lower) * 2) % 360;
+    }
+    else {
+      if (a < collisionAngle + 90) newAngle = (a + (upper - a) * 2) % 360;
+      if (a > collisionAngle + 90) newAngle = (a - (a - lower) * 2) % 360;
+    }
+  }
 
   circle.angle = newAngle;
 }
