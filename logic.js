@@ -1,4 +1,4 @@
-const INTERVAL = 100;
+const INTERVAL = 10;
 
 toastr.options.timeOut = 1000;
 toastr.info('init');
@@ -66,11 +66,9 @@ function checkSpheresCollisions(circle) {
     if (circle === col) continue;
     var distance = round(distanceVectors(circle.position, col.position));
     var radiusSum = circle.radius + col.radius;
-    toastr.info(distance + ' ' + radiusSum);
+    // toastr.info(distance + ' ' + radiusSum);
     if (distance <= (circle.radius + col.radius)) {
-      toastr.error('collision', {
-        timeOut: 2000
-      });
+      //collision
     }
   }
 }
@@ -80,24 +78,50 @@ function checkBorderCollisions(circle) {
   var x = circle.position.x,
     y = circle.position.y;
   var r = circle.radius;
+  var w = canvas.width,
+    h = canvas.height;
+
   var top = false,
     bottom = false,
     left = false,
     right = false;
-  var w = canvas.width,
-    h = canvas.height;
+  var collision = false;
 
   var newAngle = 0;
 
-  if (x + r >= w) right = true;
-  if (x - r <= 0) left = true;
-  if (y + r >= h) bottom = true;
-  if (y - r <= 0) top = true;
+  if (x + r >= w) {
+    right = true;
+    collision = true;
+  }
+  if (x - r <= 0) {
+    left = true;
+    collision = true;
+  }
+  if (y + r >= h) {
+    bottom = true;
+    collision = true;
+  }
+  if (y - r <= 0) {
+    top = true;
+    collision = true;
+  }
 
-  if (left && bottom) newAngle = 45;
-  if (left && top) newAngle = 135;
-  if (right && top) newAngle = 225;
-  if (right && bottom) newAngle = 315;
+  if (!collision) return;
+  toastr.error('collision');
 
-  if (newAngle != 0) circle.angle = newAngle;
+  if (a % 90 == 0) newAngle = (a + 180) % 360; //perpendicular
+  else if (left && bottom) newAngle = 45;
+  else if (left && top) newAngle = 135;
+  else if (right && top) newAngle = 225;
+  else if (right && bottom) newAngle = 315;
+  else if (left && a > 270) newAngle = (a + (360 - a) * 2) % 360;
+  else if (left && a < 270) newAngle = (a - (a - 180) * 2) % 360;
+  else if (right && a > 90) newAngle = (a + (180 - a) * 2) % 360;
+  else if (right && a < 90) newAngle = (a - a * 2) % 360;
+  else if (top && a < 90) newAngle = (a + (90 - a) * 2) % 360;
+  else if (top && a > 90) newAngle = (a - (a - 270) * 2) % 360;
+  else if (bottom && a > 180) newAngle = (a + (270 - a) * 2) % 360;
+  else if (bottom && a < 180) newAngle = (a - (a - 90) * 2) % 360;
+
+  circle.angle = newAngle;
 }
