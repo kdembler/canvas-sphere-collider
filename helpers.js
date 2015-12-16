@@ -29,6 +29,7 @@ function Circle(position, radius, angle, speed, color) {
   this.radius = Number(radius);
   this.angle = Number(angle);
   this.speed = Number(speed);
+  this.skips = 0;
   this.color = color;
 }
 
@@ -42,7 +43,6 @@ function drawCircle(circle) {
   var y = circle.position.y;
   var radius = circle.radius;
   var color = circle.color;
-  // toastr.info(sprintf('draw((%f,%f),%f,%s)', x, y, radius, color));
   ctx.fillStyle = color;
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -53,8 +53,12 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function toRadians(angle) {
-  return angle * (Math.PI / 180);
+function toRadians(degree) {
+  return degree * (Math.PI / 180);
+}
+
+function toDegrees(radians) {
+  return radians * (180 / Math.PI);
 }
 
 function round(float) {
