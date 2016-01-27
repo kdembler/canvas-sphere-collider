@@ -16,7 +16,7 @@ function addVectors(v1, v2) {
   return new Vector2(x, y);
 }
 
-function multiplyVector(v, n) {
+function multiplyVectors(v, n) {
   return new Vector2(v.x * n, v.y * n);
 }
 
@@ -53,8 +53,8 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function toRadians(degree) {
-  return degree * (Math.PI / 180);
+function toRadians(degrees) {
+  return degrees * (Math.PI / 180);
 }
 
 function toDegrees(radians) {

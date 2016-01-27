@@ -48,7 +48,7 @@ function loop() {
     drawCircle(circles[i]);
   }
   for (var i = 0; i < circles.length; i++) {
-    checkSpheresCollisions(circles[i]);
+    checkSphereCollisions(circles[i]);
     checkBorderCollisions(circles[i]);
   }
 }
@@ -56,16 +56,13 @@ function loop() {
 function move(circle) {
   var radians = round(toRadians(circle.angle));
   var directionVector = new Vector2(round(Math.sin(radians)), round(-Math.cos(radians)));
-  var moveVector = multiplyVector(directionVector, circle.speed / (1000 / INTERVAL));
+  var moveVector = multiplyVectors(directionVector, circle.speed / (1000 / INTERVAL));
   var newPosition = addVectors(circle.position, moveVector);
   circle.position = newPosition;
 }
 
-function checkSpheresCollisions(circle) {
+function checkSphereCollisions(circle) {
   for (var i = 0; i < circles.length; i++) {
-    // if (circle.skips > 0) {
-    //   circle.skips--;
-    // } else {
     var col = circles[i];
     if (circle === col) continue;
     var distance = round(distanceVectors(circle.position, col.position));
